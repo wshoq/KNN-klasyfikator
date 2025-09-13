@@ -18,5 +18,6 @@ COPY . .
 # Ustawienie portu dla Flask
 EXPOSE 5000
 
-# Domyślny CMD uruchamia serwis
-CMD ["python", "knn_service.py"]
+# Domyślna komenda, żeby kontener nie padł
+CMD ["sleep", "infinity"]
+

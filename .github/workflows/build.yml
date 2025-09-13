@@ -5,26 +5,29 @@ on:
     branches:
       - main
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Pobranie kodu
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2️⃣ Logowanie do GHCR
       - name: Log in to GHCR
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
+      # 3️⃣ Budowa obrazu
       - name: Build Docker image
         run: |
           docker build -t ghcr.io/${{ github.repository }}/knn-classifier:latest .
 
+      # 4️⃣ Wypychanie obrazu
       - name: Push Docker image
         run: |
           docker push ghcr.io/${{ github.repository }}/knn-classifier:latest
